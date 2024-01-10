@@ -9,7 +9,10 @@
   in {
     packages = forAllSystems (
       system: let
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [(import ./overlay)];
+        };
         callPackage = pkgs.callPackage;
       in {
         default = callPackage ./application.nix {};
